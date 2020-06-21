@@ -1,6 +1,10 @@
-locals {
-  user_arn_elements = split("/", data.aws_caller_identity.current.arn)
-  username = element(local.user_arn_elements, length(local.user_arn_elements) - 1)
+data "aws_security_group" "default" {
+  name   = "default"
+  vpc_id = module.vpc.vpc_id
+}
+
+data "aws_availability_zones" "available" {
+  state = "available"
 }
 
 data "aws_caller_identity" "current" {}
